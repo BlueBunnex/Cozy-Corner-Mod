@@ -4,7 +4,6 @@ import net.bluebunnex.cozycorner.CozyCorner;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.Box;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.item.ItemPlacementContext;
@@ -13,12 +12,11 @@ import net.modificationstation.stationapi.api.state.property.IntProperty;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Identifier;
 
-public class Canopy extends TemplateBlock {
+public class FurnitureBlock extends TemplateBlock {
 
     public static final IntProperty FACING = IntProperty.of("facing", 0, 3);
 
-    public Canopy(Identifier identifier) {
-
+    public FurnitureBlock(Identifier identifier) {
         super(identifier, Material.WOOL);
 
         this.setTranslationKey(CozyCorner.NAMESPACE, identifier.path);

@@ -1,6 +1,7 @@
 package net.bluebunnex.cozycorner;
 
-import net.bluebunnex.cozycorner.block.Canopy;
+import net.bluebunnex.cozycorner.block.FurnitureBlock;
+import net.bluebunnex.cozycorner.block.SofaBlock;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.Block;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
@@ -14,10 +15,12 @@ public class CozyCorner {
     public static final Namespace NAMESPACE = Null.get();
 
     public static Block canopy;
+    public static Block sofa;
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
 
-        canopy = new Canopy(NAMESPACE.id("canopy"));
+        canopy = new FurnitureBlock(NAMESPACE.id("canopy"));
+        sofa = new SofaBlock(NAMESPACE.id("sofa"));
     }
 }
