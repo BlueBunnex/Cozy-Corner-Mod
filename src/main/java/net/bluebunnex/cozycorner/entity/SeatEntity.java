@@ -8,15 +8,19 @@ import net.minecraft.world.World;
 
 public class SeatEntity extends Entity {
 
-    public SeatEntity(World world, double x, double y, double z) {
+    private int forwardYaw;
+
+    public SeatEntity(World world, double x, double y, double z, int facing) {
         super(world);
+
         this.setPosition(x, y - 0.5, z);
         this.setBoundingBoxSpacing(0.0F, 0.0F);
+
+        this.forwardYaw = ((facing + 2) % 4) * 90;
     }
 
     @Override
-    protected void initDataTracker() {
-    }
+    protected void initDataTracker() {}
 
     @Override
     public void tick() {
@@ -37,6 +41,7 @@ public class SeatEntity extends Entity {
 
     @Override
     public void onPlayerInteraction(PlayerEntity player) {
+
         if (this.passenger == null) {
             player.setVehicle(this);
         }
@@ -63,17 +68,24 @@ public class SeatEntity extends Entity {
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt) {
-    }
+    protected void readNbt(NbtCompound nbt) {}
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-    }
+    protected void writeNbt(NbtCompound nbt) {}
 
     @Override
     public void updatePassengerPosition() {
+
         if (this.passenger != null) {
+
             this.passenger.setPosition(this.x, this.y + 1.5, this.z);
+
+            ((PlayerEntity) this.passenger).bodyYaw = forwardYaw;
+
+            if (Math.abs(this.passenger.yaw - forwardYaw) > 75) {
+
+                this.passenger.yaw = forwardYaw + Math.copySign(75, this.passenger.yaw - forwardYaw);
+            }
         }
     }
 }

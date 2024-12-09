@@ -15,10 +15,12 @@ public class SofaBlock extends FurnitureBlock {
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
 
         if (!world.isRemote) {
-            SeatEntity seatEntity = new SeatEntity(world, x + 0.5, y + 0.5, z + 0.5);
+
+            SeatEntity seatEntity = new SeatEntity(world, x + 0.5, y + 0.5, z + 0.5, world.getBlockState(x, y, z).get(FACING));
             world.spawnEntity(seatEntity);
             player.setVehicle(seatEntity);
         }
+
         return true;
     }
 }
