@@ -18,6 +18,6 @@ public class CozyCorner {
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
 
-        canopy = new Canopy(NAMESPACE.id("canopy")).setTranslationKey(NAMESPACE, "canopy");
+        canopy = new Canopy(NAMESPACE.id("canopy"));
     }
 }
