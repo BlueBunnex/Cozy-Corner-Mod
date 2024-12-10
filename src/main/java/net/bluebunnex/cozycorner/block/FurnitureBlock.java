@@ -11,6 +11,7 @@ import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.IntProperty;
 import net.modificationstation.stationapi.api.template.block.TemplateBlock;
 import net.modificationstation.stationapi.api.util.Identifier;
+import net.modificationstation.stationapi.api.util.math.Direction;
 
 public class FurnitureBlock extends TemplateBlock {
 
@@ -54,7 +55,7 @@ public class FurnitureBlock extends TemplateBlock {
         if (bs.contains(FACING)) {
             return getTurnedShape(shape, (int) bs.get(FACING)).offset(x, y, z);
         } else {
-            return null;
+            return Box.create(x, y, z, x + 1, y + 1, z + 1);
         }
     }
 
@@ -68,7 +69,27 @@ public class FurnitureBlock extends TemplateBlock {
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
 
-        return getDefaultState().with(FACING, ((int) context.getPlayerLookDirection().asRotation() % 360) / 90);
+        // directions gives the cardinal directions in the order of how prevalent they are
+        // based on the player's look direction (I think)
+        Direction[] directions = context.getPlacementDirections();
+        int facing = 0;
+
+        for (int i=0; i<directions.length; i++) {
+
+            if (directions[i].getId() > 1) {
+
+                facing = switch (directions[i].getId()) {
+                    case 2 -> 2; // east
+                    case 5 -> 3; // south
+                    case 3 -> 0; // west
+                    default -> 1; // north
+                };
+
+                break;
+            }
+        }
+
+        return getDefaultState().with(FACING, facing);
     }
 
     private static Box getTurnedShape(Box shape, int facing) {
