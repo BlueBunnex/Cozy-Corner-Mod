@@ -8,15 +8,19 @@ import net.minecraft.world.World;
 
 public class SeatEntity extends Entity {
 
-    private int forwardYaw;
+    private final int forwardYaw;
 
     public SeatEntity(World world, double x, double y, double z, int facing) {
         super(world);
 
-        this.setPosition(x, y - 0.5, z);
+        this.setPosition(x, y, z);
         this.setBoundingBoxSpacing(0.0F, 0.0F);
 
         this.forwardYaw = ((facing + 2) % 4) * 90;
+    }
+
+    public SeatEntity(World world, double x, double y, double z) {
+        this(world, x, y, z, -1);
     }
 
     @Override
@@ -27,11 +31,12 @@ public class SeatEntity extends Entity {
         super.tick();
 
         if (this.passenger == null || this.passenger.dead) {
+
             this.markDead();
         }
 
-        if (this.passenger instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) this.passenger;
+        if (this.passenger instanceof PlayerEntity player) {
+
             if (player.isSneaking()) {
                 player.setVehicle(null);
                 this.markDead();
@@ -78,13 +83,17 @@ public class SeatEntity extends Entity {
 
         if (this.passenger != null) {
 
-            this.passenger.setPosition(this.x, this.y + 1.5, this.z);
+            this.passenger.setPosition(this.x, this.y + 1, this.z);
 
-            ((PlayerEntity) this.passenger).bodyYaw = forwardYaw;
+            // lock player direction within 75deg of forward
+            if (forwardYaw >= 0 && this.passenger instanceof PlayerEntity) {
 
-            if (Math.abs(this.passenger.yaw - forwardYaw) > 75) {
+                ((PlayerEntity) this.passenger).bodyYaw = forwardYaw;
 
-                this.passenger.yaw = forwardYaw + Math.copySign(75, this.passenger.yaw - forwardYaw);
+                if (Math.abs(this.passenger.yaw - forwardYaw) > 75) {
+
+                    this.passenger.yaw = forwardYaw + Math.copySign(75, this.passenger.yaw - forwardYaw);
+                }
             }
         }
     }

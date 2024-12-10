@@ -16,13 +16,21 @@ public class FurnitureBlock extends TemplateBlock {
 
     public static final IntProperty FACING = IntProperty.of("facing", 0, 3);
 
-    public FurnitureBlock(Identifier identifier) {
-        super(identifier, Material.WOOL);
+    public final Box shape;
+
+    public FurnitureBlock(Identifier identifier, Material material, Box shape) {
+        super(identifier, material);
 
         this.setTranslationKey(CozyCorner.NAMESPACE, identifier.path);
 
         this.setResistance(0.8f);
         this.setHardness(0.8f);
+
+        this.shape = shape;
+    }
+
+    public FurnitureBlock(Identifier identifier) {
+        this(identifier, Material.WOOL, Box.create(0, 0, 0, 1, 0.5, 1));
     }
 
     @Override
@@ -38,13 +46,20 @@ public class FurnitureBlock extends TemplateBlock {
     @Override
     public Box getBoundingBox(World world, int x, int y, int z) {
 
-        return Box.createCached(x,y,z,x + 1,y + 0.5,z + 1);
+        return getCollisionShape(world, x, y, z);
     }
 
     @Override
     public Box getCollisionShape(World world, int x, int y, int z) {
 
-        return Box.createCached(x,y,z,x + 1,y + 0.5,z + 1);
+        BlockState bs = world.getBlockState(x, y, z);
+
+        // immediately on place the block at this position is still air, so we have to check for that
+        if (bs.contains(FACING)) {
+            return getTurnedShape(shape, (int) bs.get(FACING)).offset(x, y, z);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -57,6 +72,15 @@ public class FurnitureBlock extends TemplateBlock {
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
 
-        return getDefaultState().with(FACING, ((int) context.getPlayerLookDirection().asRotation()) / 90);
+        return getDefaultState().with(FACING, ((int) context.getPlayerLookDirection().asRotation() % 360) / 90);
+    }
+
+    private static Box getTurnedShape(Box shape, int facing) {
+
+        if (facing == 0 || facing == 2) {
+            return shape;
+        }
+
+        return Box.create(shape.minZ, shape.minY, shape.minX, shape.maxZ, shape.maxY, shape.maxX);
     }
 }

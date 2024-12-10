@@ -71,5 +71,6 @@
 				"down": {"uv": [10, 2, 16, 6], "texture": "#0"}
 			}
 		}
-	]
+	],
+	"ambientocclusion": false
 }

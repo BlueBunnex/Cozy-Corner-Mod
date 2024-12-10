@@ -1,1 +1,1 @@
-My personal template for StationAPI mods
+I gotta add like. a cabinet with an inventory or smth. maybe a toggleable lamp. and a block-tall stool

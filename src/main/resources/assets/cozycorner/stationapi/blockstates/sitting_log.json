@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=0": { "model": "cozycorner:block/sitting_log" },
+    "facing=1": { "model": "cozycorner:block/sitting_log", "y": 90 },
+    "facing=2": { "model": "cozycorner:block/sitting_log", "y": 180 },
+    "facing=3": { "model": "cozycorner:block/sitting_log", "y": 270 }
+  }
+}
