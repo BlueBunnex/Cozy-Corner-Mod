@@ -1,8 +1,24 @@
 {
-  "variants": {
-    "facing=0": { "model": "cozycorner:block/canopy" },
-    "facing=1": { "model": "cozycorner:block/canopy", "y": 90, "uvlock": true },
-    "facing=2": { "model": "cozycorner:block/canopy", "y": 180, "uvlock": true },
-    "facing=3": { "model": "cozycorner:block/canopy", "y": 270, "uvlock": true }
-  }
+  "multipart": [
+    {
+      "when": { "is_edge": "false" },
+      "apply": { "model": "cozycorner:block/canopy_flat" }
+    },
+    {
+      "when": { "facing": "0", "is_edge": "true" },
+      "apply": { "model": "cozycorner:block/canopy_edge" }
+    },
+    {
+      "when": { "facing": "1", "is_edge": "true" },
+      "apply": { "model": "cozycorner:block/canopy_edge", "y": 90, "uvlock": true }
+    },
+    {
+      "when": { "facing": "2", "is_edge": "true" },
+      "apply": { "model": "cozycorner:block/canopy_edge", "y": 180, "uvlock": true }
+    },
+    {
+      "when": { "facing": "3", "is_edge": "true" },
+      "apply": { "model": "cozycorner:block/canopy_edge", "y": 270, "uvlock": true }
+    }
+  ]
 }

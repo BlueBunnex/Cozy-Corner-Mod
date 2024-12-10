@@ -17,12 +17,6 @@ public class SeatFurnitureBlock extends FurnitureBlock {
         this.rideHeight = rideHeight;
     }
 
-    public SeatFurnitureBlock(Identifier identifier) {
-        super(identifier);
-
-        this.rideHeight = 0.5;
-    }
-
     @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
 

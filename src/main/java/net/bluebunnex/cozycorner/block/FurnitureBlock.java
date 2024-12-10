@@ -29,10 +29,6 @@ public class FurnitureBlock extends TemplateBlock {
         this.shape = shape;
     }
 
-    public FurnitureBlock(Identifier identifier) {
-        this(identifier, Material.WOOL, Box.create(0, 0, 0, 1, 0.5, 1));
-    }
-
     @Override
     public boolean isOpaque() {
         return false;
