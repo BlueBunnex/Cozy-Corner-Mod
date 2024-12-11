@@ -16,7 +16,7 @@ public class CanopyBlock extends FurnitureBlock {
     public static final BooleanProperty IS_EDGE = BooleanProperty.of("is_edge");
 
     public CanopyBlock(Identifier identifier) {
-        super(identifier, Material.WOOL, Box.create(0, 0, 0, 1, 0.5, 1));
+        super(identifier, Material.WOOD, Box.create(0, 0, 0, 1, 0.5, 1));
     }
 
     @Override
