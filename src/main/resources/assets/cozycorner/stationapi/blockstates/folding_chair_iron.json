@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=0": { "model": "cozycorner:block/folding_chair_iron" },
+    "facing=1": { "model": "cozycorner:block/folding_chair_iron", "y": 90 },
+    "facing=2": { "model": "cozycorner:block/folding_chair_iron", "y": 180 },
+    "facing=3": { "model": "cozycorner:block/folding_chair_iron", "y": 270 }
+  }
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "cozycorner:block/folding_chair_abstract",
+	"textures": {
+		"base": "cozycorner:block/folding_chair_iron",
+		"particle": "minecraft:block/iron_block"
+	}
+}

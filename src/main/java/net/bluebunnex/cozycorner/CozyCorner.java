@@ -20,7 +20,8 @@ public class CozyCorner {
     public static Block canopy;
     public static Block sofa;
     public static Block sitting_log;
-    public static Block folding_chair;
+    public static Block folding_chair_wood;
+    public static Block folding_chair_iron;
     public static Block flower_blue;
 
     @EventListener
@@ -32,7 +33,8 @@ public class CozyCorner {
         // furniture
         sofa = new SeatFurnitureBlock(NAMESPACE.id("sofa"), Material.WOOL, Box.create(0, 0, 0, 1, 0.375, 1), 0.5);
         sitting_log = new SeatFurnitureBlock(NAMESPACE.id("sitting_log"), Material.WOOD, Box.create(0, 0, 0.375, 1, 0.25, 0.625), 0.25);
-        folding_chair = new SeatFurnitureBlock(NAMESPACE.id("folding_chair"), Material.METAL, Box.create(0.125, 0, 0.125, 0.875, 0.375, 0.875), 0.5);
+        folding_chair_wood = new SeatFurnitureBlock(NAMESPACE.id("folding_chair_wood"), Material.WOOD, Box.create(0.125, 0, 0.125, 0.875, 0.375, 0.875), 0.5);
+        folding_chair_iron = new SeatFurnitureBlock(NAMESPACE.id("folding_chair_iron"), Material.METAL, Box.create(0.125, 0, 0.125, 0.875, 0.375, 0.875), 0.5);
 
         // flowers
         flower_blue = new FlowerBlock(NAMESPACE.id("flower_blue"));

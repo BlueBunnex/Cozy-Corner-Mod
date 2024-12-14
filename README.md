@@ -4,7 +4,7 @@ adds new aesthetic blocks to make cozy houses with
 
 - sofa
 - wooden slats canopy
-- metal folding chair
+- wood/metal folding chair
 - sitting log
 - blue flower
 
@@ -12,3 +12,4 @@ adds new aesthetic blocks to make cozy houses with
 - toggleable lamp
 - block-tall stool
 - flowers
+- stone brick
