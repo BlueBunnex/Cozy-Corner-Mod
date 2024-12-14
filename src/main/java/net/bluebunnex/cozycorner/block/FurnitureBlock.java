@@ -3,7 +3,9 @@ package net.bluebunnex.cozycorner.block;
 import net.bluebunnex.cozycorner.CozyCorner;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.item.ItemPlacementContext;
@@ -27,7 +29,21 @@ public class FurnitureBlock extends TemplateBlock {
         this.setResistance(0.8f);
         this.setHardness(0.8f);
 
+        this.setBoundingBox(0, 0, 0, 1, 0.5f, 1);
+
         this.shape = shape;
+    }
+
+    @Override
+    public HitResult raycast(World world, int x, int y, int z, Vec3d startPos, Vec3d endPos) {
+
+        // raycast doesn't use getBounds to get the bounding box, so we gotta do some jank
+        Box bounds = getLocalBounds(world, x, y, z);
+        this.setBoundingBox(
+                (float) bounds.minX, (float) bounds.minY, (float) bounds.minZ,
+                (float) bounds.maxX, (float) bounds.maxY, (float) bounds.maxZ);
+
+        return super.raycast(world, x, y, z, startPos, endPos);
     }
 
     @Override
@@ -43,20 +59,35 @@ public class FurnitureBlock extends TemplateBlock {
     @Override
     public Box getBoundingBox(World world, int x, int y, int z) {
 
-        return getCollisionShape(world, x, y, z);
+        return getLocalBounds(world, x, y, z).offset(x, y, z);
     }
 
     @Override
     public Box getCollisionShape(World world, int x, int y, int z) {
 
+        return getLocalBounds(world, x, y, z).offset(x, y, z);
+    }
+
+    private Box getLocalBounds(World world, int x, int y, int z) {
+
         BlockState bs = world.getBlockState(x, y, z);
 
-        // immediately on place the block at this position is still air, so we have to check for that
+        // when checking for if a placement is valid the block at
+        // this position is still air, so we have to check for that
         if (bs.contains(FACING)) {
-            return getTurnedShape(shape, (int) bs.get(FACING)).offset(x, y, z);
+            return getTurnedShape(shape, (int) bs.get(FACING));
         } else {
-            return Box.create(x, y, z, x + 1, y + 1, z + 1);
+            return Box.create(0, 0, 0, 1, 1, 1);
         }
+    }
+
+    private static Box getTurnedShape(Box shape, int facing) {
+
+        if (facing == 0 || facing == 2) {
+            return shape;
+        }
+
+        return Box.create(shape.minZ, shape.minY, shape.minX, shape.maxZ, shape.maxY, shape.maxX);
     }
 
     @Override
@@ -90,14 +121,5 @@ public class FurnitureBlock extends TemplateBlock {
         }
 
         return getDefaultState().with(FACING, facing);
-    }
-
-    private static Box getTurnedShape(Box shape, int facing) {
-
-        if (facing == 0 || facing == 2) {
-            return shape;
-        }
-
-        return Box.create(shape.minZ, shape.minY, shape.minX, shape.maxZ, shape.maxY, shape.maxX);
     }
 }
