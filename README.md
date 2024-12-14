@@ -1,7 +1,14 @@
-# Cozy Corner
+# Cozy Corner [StationAPI]
 
-mod built from the [StationAPI for b1.7.3](https://github.com/DanyGames2014/stationapi-template-mod)
+adds new aesthetic blocks to make cozy houses with
 
-adds new aesthetic blocks to make cozy houses and maybe a music disc and like. flowers
+- sofa
+- wooden slats canopy
+- metal folding chair
+- sitting log
+- blue flower
 
-I gotta add like. a cabinet with an inventory or smth. maybe a toggleable lamp. and a block-tall stool
+- a cabinet with an inventory (world.setBlockEntity)
+- toggleable lamp
+- block-tall stool
+- flowers
